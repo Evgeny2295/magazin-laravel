@@ -1,0 +1,56 @@
+services:
+    nginx:
+        image: nginx:latest
+        volumes:
+            - ./:/var/www
+            - ./_docker/nginx/conf.d:/etc/nginx/conf.d
+        ports:
+            - 8881:80
+        depends_on:
+            - app
+        container_name: magazin_nginx
+
+    app:
+        build:
+            context: .
+            dockerfile: _docker/app/Dockerfile
+        volumes:
+            - ./:/var/www
+        container_name: magazin_app
+
+    db:
+        image: mysql:8.0
+        restart: always
+        volumes:
+            - ./tmp/db:/var/lib/mysql
+        environment:
+            MYSQL_DATABASE: magazin
+            MYSQL_ROOT_PASSWORD: root
+        ports:
+            - 8101:3306
+        command: mysqld --character-set-server=utf8 --collation-server=utf8_unicode_ci
+        container_name: magazin_db
+
+    phpmyadmin:
+        image: phpmyadmin/phpmyadmin
+        environment:
+            PMA_HOST: db
+            MYSQL_ROOT_PASSWORD: root
+        depends_on:
+            - db
+        ports:
+            - 3001:80
+
+    rabbit:
+        image: rabbitmq:4.0-management
+        environment:
+            - RABBITMQ_DEFAULT_USER=admin #укажите имя пользователя
+            - RABBITMQ_DEFAULT_PASS=password #укажите сложный пароль
+        volumes:
+            - ./rabbit:/var/lib/rabbitmq #монтируем папку с состоянием
+        ports:
+            - 15672:15672 #открываем порт для админки
+
+
+
+
