@@ -10,12 +10,7 @@
                 <div class="card-body">
                     <form method="POST" action="{{ route('login') }}">
                         @csrf
-                        @if(!empty(session('error')))
-                            <div class="text-danger text-center mb-3">
-                                <h3>{{session('error')}}</h3>
-                            </div>
-                            <?php session()->forget('error');?>
-                        @endif
+
                         <div class="row mb-3">
                             <label for="email" class="col-md-4 col-form-label text-md-end">{{ __('Email Address') }}</label>
 

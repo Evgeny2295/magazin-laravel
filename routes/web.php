@@ -26,21 +26,24 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/admin', [\App\Http\Controllers\Admin\Main\IndexController::class, 'index'])->middleware('AdminMiddleware')->name('admin.main.index');
-Route::get('/admin/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');
-Route::get('/admin/orders/{order}/edit', [\App\Http\Controllers\Admin\OrderController::class, 'edit'])->name('admin.orders.edit');
-Route::patch('/admin/orders/{order}/update', [\App\Http\Controllers\Admin\OrderController::class, 'update'])->name('admin.orders.update');
+Route::prefix('admin')->group(function(){
+    Route::middleware(['admin'])->group(function(){
+        Route::get('/', [\App\Http\Controllers\Admin\Main\IndexController::class, 'index'])->name('admin.main.index');
+        Route::get('/orders', [\App\Http\Controllers\Admin\OrderController::class, 'index'])->name('admin.orders.index');
+        Route::get('/orders/{order}/edit', [\App\Http\Controllers\Admin\OrderController::class, 'edit'])->name('admin.orders.edit');
+        Route::patch('/orders/{order}/update', [\App\Http\Controllers\Admin\OrderController::class, 'update'])->name('admin.orders.update');
 
-Route::resources(
-    [
-        'admin/categories' => \App\Http\Controllers\Admin\CategoryController::class,
-        'admin/users' => \App\Http\Controllers\Admin\UserController::class,
-        'admin/products' => \App\Http\Controllers\Admin\ProductController::class,
-    ]
-);
+        Route::resources(
+            [
+                'categories' => \App\Http\Controllers\Admin\CategoryController::class,
+                'users' => \App\Http\Controllers\Admin\UserController::class,
+                'products' => \App\Http\Controllers\Admin\ProductController::class,
+            ]
+        );
+    });
+});
 
 
 Auth::routes(['verify'=>true]);
-
 
 

@@ -16,8 +16,8 @@ class AdminMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if(User::getRoles()[$request->session()->get('role')] !== 'admin'){
-            $request->session()->put('error','вы не имеете доступ');
+
+        if(!request()->session()->get('role') || User::getRoles()[request()->session()->get('role')] !== 'admin'){
             return redirect()->route('login');
         }
         return $next($request);

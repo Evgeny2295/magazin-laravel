@@ -7,7 +7,7 @@ use App\Models\Admin\Product;
 class IndexController extends Controller
 {
     public function index(){
-        return auth()->user()->likedProducts;
+        return json_encode(auth()->user()->likedProducts);
     }
 
 }
