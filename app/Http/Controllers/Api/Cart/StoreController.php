@@ -4,24 +4,27 @@ namespace App\Http\Controllers\Api\Cart;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Api\Cart\StoreRequest;
 use App\Models\OrderProducts;
-use App\Models\Orders;
+use App\Models\Order;
+use Exception;
 use Illuminate\Database\Events\TransactionBeginning;
 use Illuminate\Support\Facades\DB;
-use mysql_xdevapi\Exception;
+
 
 class StoreController extends Controller
 {
     public function store(StoreRequest $request)
     {
-
         $data = $request->validated();
+
         $collection = collect($data['products']);
+
         $qty = $collection->pluck('qty')->sum();
+
         $total = $collection->pluck('price')->sum();
 
         try {
             DB::beginTransaction();
-            $order_id = Orders::create([
+            $order_id = Order::create([
                 'user_id'=>auth()->user()->id,
                 'note'=>'fdfdf',
                 'total'=>$total,
@@ -41,6 +44,7 @@ class StoreController extends Controller
 
         }catch (Exception $e){
             DB::rollBack();
+
             return json_encode('Ошибка добавления');
         }
 

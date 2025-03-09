@@ -52,7 +52,7 @@
                                                 <a href="{{route('products.show',$product['slug'])}}">{{$product['title']}}</a>
                                             </td>
                                             <td>
-                                                $<?= $product['price'] ?>
+                                                <?= $product['price'] ?>Р
                                             </td>
                                             <td>
                                                 {{$product['status'] ? 'Активен' : 'Не активен' }}

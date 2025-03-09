@@ -26,7 +26,9 @@
                     @csrf
                     @method('PATCH')
                     <div class="mb-2">
-                        <input type="text" name="title" value="{{$product->title}}" placeholder="Введите наименование">
+                        <label for="title">Введите наименование</label>
+                        <br/>
+                        <input type="text" name="title" id="title" value="{{$product->title}}" placeholder="Введите наименование">
                     </div>
                     <div>
                         @error('title')
@@ -34,7 +36,9 @@
                         @enderror
                     </div>
                     <div class="mb-2">
-                        <textarea name="description" cols="30" rows="10" placeholder="Описание">{{$product->description}}</textarea>
+                        <label for="description">Описание</label>
+                        <br/>
+                        <textarea name="description" id="description" cols="30" rows="10">{{$product->description}}</textarea>
                     </div>
                     <div>
                         @error('description')
@@ -42,6 +46,8 @@
                         @enderror
                     </div>
                     <div class="mb-2">
+                        <label for="price">Цена</label>
+                        <br/>
                         <input type="number" name="price" value="{{$product->price}}" placeholder="Цена">
                     </div>
                     <div>
@@ -50,6 +56,18 @@
                         @enderror
                     </div>
                     <div class="mb-2">
+                        <label for="old_price">Старая цена</label>
+                        <br/>
+                        <input type="number" name="old_price" value="{{$product->old_price}}" placeholder="Старая цена">
+                    </div>
+                    <div>
+                        @error('old_price')
+                        {{$message}}
+                        @enderror
+                    </div>
+                    <div class="mb-2">
+                        <label for="count">Количество</label>
+                        <br/>
                         <input type="number" name="count" value="{{$product->count}}" placeholder="Количество">
                     </div>
                     <div>
@@ -68,11 +86,6 @@
                     </div>
                     <div>
                         @error('category_id')
-                        {{$message}}
-                        @enderror
-                    </div>
-                                 <div>
-                        @error('colors')
                         {{$message}}
                         @enderror
                     </div>

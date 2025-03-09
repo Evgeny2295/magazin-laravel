@@ -11,7 +11,7 @@ class Order extends Model
     protected $guarded = false;
     protected $table = 'orders';
 
-    public function orderProducts()
+    public function getOrderProducts()
     {
         return $this->hasMany(OrderProducts::class,'order_id','id');
     }

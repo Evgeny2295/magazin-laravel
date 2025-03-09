@@ -5,7 +5,7 @@
         <div class="container-fluid">
             <div class="row mb-2">
                 <div class="col-sm-6">
-                    <h1 class="m-0">Продукты</h1>
+                    <h1 class="m-0">Заказы</h1>
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
@@ -44,11 +44,11 @@
                                     <tr <?php if ($order['status']) echo 'class="table-info"' ?>>
                                         <td><?= $order['id'] ?></td>
                                         <td>
-                                                <?= $order['status'] ? 'Завершен' : 'Новый' ?>
+                                            <?= $order['status'] ? 'Завершен' : 'Новый' ?>
                                         </td>
                                         <td><?= $order['created_at'] ?></td>
                                         <td><?= $order['updated_at'] ?></td>
-                                        <td>$<?= $order['total'] ?></td>
+                                        <td><?= $order['total'] ?>Р</td>
                                         <td style="width: 50px">
                                             <a class="btn btn-info btn-sm" href="{{route('admin.orders.edit',$order->id)}}">
                                                 <i class="fas fa-pencil-alt"></i>

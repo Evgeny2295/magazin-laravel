@@ -11,16 +11,14 @@ class IndexController extends Controller
 {
     public function index(IndexRequest $request)
     {
-
         $data = $request->validated();
 
         $products = Product::where('title','LIKE',"%{$data['s']}%")->paginate(1,['*'],'page',$data['page']);
 
         foreach ($products as $product) {
-            $product['count'] = count($product->likedUsers);
+            $product['countLikes'] = count($product->likedUsers);
         }
         return json_encode($products);
-
     }
 
 }

@@ -11,7 +11,9 @@ class ShowController extends Controller
 {
     public function show(Product $product)
     {
-        $product['count'] = count($product->likedUsers);
+        if(!empty($product)) {
+            $product['countLikes'] = count($product->likedUsers);
+        }
         return json_encode($product);
     }
 

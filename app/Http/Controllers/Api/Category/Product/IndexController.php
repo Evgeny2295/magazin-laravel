@@ -10,8 +10,8 @@ class IndexController extends Controller
 {
     public function index(Category $category,IndexRequest $request)
     {
-
         $data = $request->validated();
+
         $products = $category->products()->paginate(2,['*'],'page',$data['page']);
 
         if(!empty($products)) {
@@ -19,7 +19,6 @@ class IndexController extends Controller
                 $product['countLikes'] = count($product->likedUsers);
                 $product['categoryTitle'] = $category->title;
             }
-
         }
 
         return json_encode($products);

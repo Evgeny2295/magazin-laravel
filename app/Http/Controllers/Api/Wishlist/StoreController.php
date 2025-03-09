@@ -7,7 +7,6 @@ use App\Models\Product;
 class StoreController extends Controller
 {
     public function store(Product $product){
-
         auth()->user()->likedProducts()->toggle($product->id);
     }
 

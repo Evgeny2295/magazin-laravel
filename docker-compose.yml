@@ -40,7 +40,6 @@ services:
             - db
         ports:
             - 3001:80
-
     rabbit:
         image: rabbitmq:4.0-management
         environment:
